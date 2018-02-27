@@ -137,7 +137,6 @@ def scoring(values, total, j)
 		$counter += 1
 	end
 	if total >= 300 && $counter >= 1
-		puts $counter
 		if total > $take
 			if $take < 300
 				$store[j-1] = total + $take
