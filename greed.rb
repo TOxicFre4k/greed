@@ -6,7 +6,6 @@ end
 
 $take = 0
 $store = []
-$check = []
 $counter = 0
 $final = 0
 
@@ -127,19 +126,27 @@ def scoring(values, total, j)
 			loop2 += 1
 		end
 	end
-	puts "\nTotal Score in this turn is: #{total}" 
-	$counter += 1
-	
+	if $store[j-1] == nil
+		$store[j-1] = 0
+	end
+	puts "\nTotal Score in this turn is: #{total - $store[j-1]}" 
+	puts "\nTotal Scoring Dice: #{initial}"
+	puts "\nTotal Non-Scoring Dice: #{values.length - initial}"
 
 	if total >= 300
+		$counter += 1
+	end
+	if total >= 300 && $counter >= 1
+		puts $counter
 		if total > $take
+			if $take < 300
+				$store[j-1] = total + $take
+			elsif $take > 300
+				$store[j-1] = total
+			end
 			$take = total
-			$store[j-1] = total
-			$check[j-1] = total
 			if (count > 0 && total_sec > 0) || loop2 == 0
-				puts "\nTotal Scoring Dice: #{initial}"
-				puts "\nTotal Non-Scoring Dice: #{values.length - initial}"
-				print "\nDo you wish to continue?(Y/N): "
+				print "\nContinue throw for non-scoring dice?(Y/N): "
 				option = gets.chomp.to_s
 				if option == "Y"
 					rethrow(count, total, j)
@@ -160,17 +167,18 @@ def scoring(values, total, j)
 				$final = total
 			else
 			end
-		elsif total == $take
+		elsif total == $take 
 			$store[j-1] = 0
 		else
 		end
-	elsif total < 300
+	elsif total < 300 && $counter == 0
+		#puts $counter
 		#puts $final
 		#puts total
-			puts "\nTotal Scoring Dice: #{initial}"
-		  	puts "\nTotal Non-Scoring Dice: #{values.length - initial}"
-			puts "\nScore Less than 300. Next Turn!"
-			$final = total
+		puts "\nScore Less than 300. Next Turn!"
+		$final = total
+	elsif total < 300 && $counter > 0
+		$store[j-1] = total + $take
 	else
 	end
 end
