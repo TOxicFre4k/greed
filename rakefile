@@ -1,0 +1,10 @@
+require_relative "main.rb"
+
+task :players do
+    $main = MainClass.new
+    $main.player_number
+end
+
+task :roller => :players do
+    $main.roller
+end
