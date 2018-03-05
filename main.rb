@@ -16,19 +16,22 @@ class MainClass
     def roller
         logic = ThrowLogic.new
         loop do
+            loop do
+                (1..@number).each do |i|
+                    @player_score, @scoring_dies, @non_scoring_dies, @total_score = logic.throw(i)
+                    puts "\nPlayer score is: #{@player_score}"
+                end
+                print "\nDo you wish to continue to next round? : "
+                @continue = STDIN.gets.chomp.to_s
+                if @continue == 'Y' or @continue == 'y'
+                    next
+                end
+                break if @continue == 'n' or @continue == 'n'
+            end
             (1..@number).each do |i|
-                @player_score, @scoring_dies, @non_scoring_dies, @total_score = logic.throw(i)
-                puts "\nPlayer score is: #{@player_score}"
+                puts "\nTotal Score of - Player #{i}:  #{@total_score[i-1]}"
             end
-            print "\nDo you wish to continue to next round? : "
-            @continue = STDIN.gets.chomp.to_s
-            if @continue == 'Y' or @continue == 'y'
-                next
-            end
-            break if @continue == 'n' or @continue == 'n'
-        end
-        (1..@number).each do |i|
-            puts "\nTotal Score of - Player #{i}:  #{@total_score[i-1]}"
+            break if @total_score[i-player] >= 3000
         end
     end
 end
