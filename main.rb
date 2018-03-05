@@ -25,7 +25,7 @@ class MainClass
             if @continue == 'Y' || @continue == 'y'
                 next
             end
-            break if @continue == 'n' || @continue == 'n' || @total_score[@number - (@number + 1 )] > 3000
+            break if @continue == 'n' || @continue == 'n' || @total_score[@number + 1] > 3000
         end
         (1..@number).each do |i|
             puts "\nTotal Score of - Player #{i}:  #{@total_score[i-1]}"
