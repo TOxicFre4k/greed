@@ -6,6 +6,7 @@ class ThrowLogic
     attr_accessor :score, :counter
     @score = 0
     @counter = 0
+    $all_player_score = []
 
     def throw(player)
         @score = 0
@@ -16,9 +17,6 @@ class ThrowLogic
         @score += @score_first
         puts "\nScore in Initial Throw: #{@score}"
         if @score >= 300
-            if score >= 3000
-                @counter += 1
-            end
             loop do
                 if @non_scoring > 0 && @scoring > 0
                     print "\nDo you wish to continue with Re-throw? : "
@@ -44,11 +42,13 @@ class ThrowLogic
                 end
                 break if @scoring == 0
             end
-            return @score, @scoring, @non_scoring, @counter
+            $all_player_score[player-1] = @score 
+            return @score, @scoring, @non_scoring, $all_player_score, @counter
         elsif @score < 300
             puts "\nUnable to continue as score is less than 300! Please try again in next throw!"
             @score = 0
-            return @score, @scoring, @non_scoring
+            $all_player_score[player-1] = @score 
+            return @score, @scoring, @non_scoring, $all_player_score, @counter
         end
     end
 end
