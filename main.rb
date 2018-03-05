@@ -17,7 +17,7 @@ class MainClass
         logic = ThrowLogic.new
         loop do
             (1..@number).each do |i|
-                @player_score, @scoring_dies, @non_scoring_dies, @total_score, @counter, @counter_total = logic.throw(i)
+                @player_score, @scoring_dies, @non_scoring_dies, @total_score = logic.throw(i)
                 puts "\nPlayer score is: #{@player_score}"
             end
             print "\nDo you wish to continue to next round? : "

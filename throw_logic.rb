@@ -49,12 +49,12 @@ class ThrowLogic
                 break if @scoring == 0
             end
             $all_player_score[player-1] = @score 
-            return @score, @scoring, @non_scoring, $all_player_score, @counter, $counter_keep
+            return @score, @scoring, @non_scoring, $all_player_score
         elsif @score < 300
             puts "\nUnable to continue as score is less than 300! Please try again in next throw!"
             @score = 0
             $all_player_score[player-1] = @score 
-            return @score, @scoring, @non_scoring, $all_player_score, @counter, $counter_keep
+            return @score, @scoring, @non_scoring, $all_player_score
         end
     end
     @counter = 0
