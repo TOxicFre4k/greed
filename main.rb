@@ -5,7 +5,8 @@ require_relative 'throw_logic.rb'
 
 class MainClass
 
-    attr_accessor :number
+    attr_accessor :number, :looping
+    $looping = 0
 
     def player_number
         @player = Players.new
@@ -17,6 +18,7 @@ class MainClass
         logic = ThrowLogic.new
         loop do
             (1..@number).each do |i|
+                $looping = i
                 @player_score, @scoring_dies, @non_scoring_dies, @total_score = logic.throw(i)
                 puts "\nPlayer score is: #{@player_score}"
             end
@@ -25,7 +27,7 @@ class MainClass
             if @continue == 'Y' || @continue == 'y'
                 next
             end
-            break if @continue == 'n' || @continue == 'n' || @total_score[@number + 1] > 3000
+            break if @continue == 'n' || @continue == 'n' || @total_score[($looping - $total_score.length] > 3000
         end
         (1..@number).each do |i|
             puts "\nTotal Score of - Player #{i}:  #{@total_score[i-1]}"
