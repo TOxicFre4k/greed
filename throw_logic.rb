@@ -7,16 +7,22 @@ class ThrowLogic
     @score = 0
     @counter = 0
     $all_player_score = []
+    $counter_keep = []
 
     def throw(player)
         @score = 0
+        @counter = 0
+        $all_player_score[player-1] = 0 if $all_player_score[player-1] == nil
+        $counter_keep[player-1] = 0 if $counter_keep[player-1] == nil
         die_roller = DieRoll.new
         calculator = PointCalculator.new
         @die_values = die_roller.die_roll_initial(player)
         @score_first, @scoring, @non_scoring = calculator.calc(@die_values)
-        @score += @score_first
+        @score += @score_first + $all_player_score[player-1]
         puts "\nScore in Initial Throw: #{@score}"
-        if @score >= 300
+        if @score >= 300 || $counter_keep[player-1] > 0
+            @counter += 1
+            $counter_keep[player-1] = @counter
             loop do
                 if @non_scoring > 0 && @scoring > 0
                     print "\nDo you wish to continue with Re-throw? : "
@@ -43,12 +49,13 @@ class ThrowLogic
                 break if @scoring == 0
             end
             $all_player_score[player-1] = @score 
-            return @score, @scoring, @non_scoring, $all_player_score, @counter
+            return @score, @scoring, @non_scoring, $all_player_score, @counter, $counter_keep
         elsif @score < 300
             puts "\nUnable to continue as score is less than 300! Please try again in next throw!"
             @score = 0
             $all_player_score[player-1] = @score 
-            return @score, @scoring, @non_scoring, $all_player_score, @counter
+            return @score, @scoring, @non_scoring, $all_player_score, @counter, $counter_keep
         end
     end
+    @counter = 0
 end
