@@ -15,9 +15,11 @@ class MainClass
 
     def roller
         logic = ThrowLogic.new
-        (1..@number).each do |i|
-            @player_score = logic.throw(i)
-            puts "\nPlayer score is: #{@player_score}"
-        end
+        loop do
+            (1..@number).each do |i|
+                @player_score, @scoring_dies, @non_scoring_dies, @counter = logic.throw(i)
+                puts "\nPlayer score is: #{@player_score}"
+            end
+            break if 
     end
 end
